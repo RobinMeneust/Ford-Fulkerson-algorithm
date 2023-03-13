@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="compile" name="TP1">
+	<property name="srcdir" value="src" />
+	<property name="bindir" value="bin" />
+	<target name="clean">
+		<delete dir="${bindir}" />
+	</target>
+	<target name="compile" depends="clean">
+		<mkdir dir="${bindir}"/>
+		<echo message="Compilation en cours..." />
+		<javac debug="true" srcdir="${srcdir}" destdir="${bindir}" />
+	</target>
+	<target name="run" depends="compile">
+		<java classpath="${bindir}" classname="graphs.TestGraphs"/>
+	</target>
+    <target name="create_run_jar" depends="compile">
+        <jar destfile="RunnableGraph.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="graphs.TestGraphs"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${bindir}"/>
+        </jar>
+    </target>
+	<target name="javadoc">
+	        <javadoc access="public" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+	</target>
+</project>
